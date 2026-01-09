@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+@layer base {
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    @apply bg-cream text-text-strong font-sans;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+  
+  ::selection {
+    @apply bg-taupe/30 text-text-strong;
+  }
+}
+
+/* ========================================
+   TYPOGRAPHY UTILITIES
+   ======================================== */
+
+@layer components {
+  .text-display {
+    @apply font-serif font-light uppercase tracking-widest;
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    line-height: 1.1;
+  }
+  
+  .text-section-title {
+    @apply font-serif font-normal uppercase tracking-wider text-text-strong;
+    font-size: clamp(1.5rem, 3vw, 1.75rem);
+    line-height: 1.2;
+  }
+  
+  .text-label {
+    @apply font-sans font-medium uppercase tracking-wider text-accent;
+    font-size: 0.6875rem;
+    line-height: 1.4;
+  }
+  
+  .text-body {
+    @apply font-sans font-normal text-text-strong;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+  
+  .text-caption {
+    @apply font-sans font-normal text-text-secondary;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* ========================================
+   COMPONENT STYLES
+   ======================================== */
+
+@layer components {
+  /* Section Container */
+  .section {
+    @apply py-12 md:py-16;
+  }
+  
+  .section-inner {
+    @apply max-w-proposal mx-auto px-6 md:px-8;
+  }
+  
+  /* Divider */
+  .divider {
+    @apply w-16 h-px bg-line mx-auto;
+  }
+  
+  .divider-full {
+    @apply w-full h-px bg-line;
+  }
+  
+  /* Cards */
+  .card {
+    @apply bg-surface rounded-soft shadow-subtle border border-line/50;
+  }
+  
+  .card-accent {
+    @apply bg-card/50 rounded-soft border border-line;
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2
+           px-8 py-4 bg-text-strong text-cream
+           font-sans text-label uppercase tracking-wider
+           rounded-subtle transition-all duration-300
+           hover:bg-accent hover:shadow-elevated;
+  }
+  
+  /* Lists */
+  .list-editorial {
+    @apply space-y-3;
+  }
+  
+  .list-editorial li {
+    @apply flex items-start gap-4 text-body;
+  }
+  
+  .list-editorial li::before {
+    content: '';
+    @apply w-1.5 h-1.5 rounded-full bg-accent mt-2.5 flex-shrink-0;
+  }
+  
+  /* Numbered List */
+  .list-numbered {
+    counter-reset: item;
+    @apply space-y-4;
+  }
+  
+  .list-numbered li {
+    counter-increment: item;
+    @apply flex items-start gap-5;
+  }
+  
+  .list-numbered li::before {
+    content: counter(item, decimal-leading-zero);
+    @apply font-serif text-lg text-accent flex-shrink-0 w-8;
+  }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 20mm;
+  }
+  
+  html {
+    font-size: 11pt;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  body {
+    background: white !important;
+  }
+  
+  /* Page Breaks */
+  .page-break-before {
+    page-break-before: always;
+    break-before: page;
+  }
+  
+  .page-break-after {
+    page-break-after: always;
+    break-after: page;
+  }
+  
+  .avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Orphans & Widows */
+  p, li {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  
+  /* Section Spacing for Print */
+  .section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Cover Page - Full height */
+  .cover-section {
+    min-height: 100vh;
+    page-break-after: always;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Hide interactive elements */
+  .no-print,
+  .btn-primary {
+    display: none !important;
+  }
+  
+  /* Force backgrounds */
+  .card,
+  .card-accent,
+  [class*="bg-"] {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  /* Images */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+  
+  /* Links */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Table rows */
+  tr {
+    page-break-inside: avoid;
+  }
+}
+
+/* ========================================
+   ANIMATION (Web only)
+   ======================================== */
+
+@media screen {
+  .fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .section {
+    @apply fade-in;
+  }
+  
+  .section:nth-child(1) { animation-delay: 0.1s; }
+  .section:nth-child(2) { animation-delay: 0.2s; }
+  .section:nth-child(3) { animation-delay: 0.3s; }
+  .section:nth-child(4) { animation-delay: 0.4s; }
+  .section:nth-child(5) { animation-delay: 0.5s; }
+  .section:nth-child(6) { animation-delay: 0.6s; }
+  .section:nth-child(7) { animation-delay: 0.7s; }
+  .section:nth-child(8) { animation-delay: 0.8s; }
+  .section:nth-child(9) { animation-delay: 0.9s; }
+  .section:nth-child(10) { animation-delay: 1.0s; }
+}
