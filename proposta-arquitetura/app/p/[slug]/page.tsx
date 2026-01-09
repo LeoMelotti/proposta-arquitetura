@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getProposalBySlug, getAllProposalSlugs } from from '@/lib/sheets';
+import { getProposalBySlug, getAllProposalSlugs } from '@/lib/sheets';
 import { ViewTracker } from '@/components/ViewTracker';
 import {
   Cover,
