@@ -13,19 +13,41 @@ export function PricingTable({ proposal }: PricingTableProps) {
     pct: proposal.parcelasPct[index] || '',
   }));
 
+  // Função para formatar porcentagem corretamente
+  const formatPct = (pct: string) => {
+    if (!pct) return '';
+    // Se já tem %, retorna como está
+    if (pct.includes('%')) return pct;
+    // Se é número decimal (ex: 0.2), converte para porcentagem
+    const num = parseFloat(pct);
+    if (!isNaN(num)) {
+      if (num <= 1) {
+        return `${Math.round(num * 100)}%`;
+      }
+      return `${Math.round(num)}%`;
+    }
+    return pct;
+  };
+
   const validityDate = getValidityDate(proposal.dataProposta, proposal.validadeDias);
 
   return (
     <section className="section avoid-break">
       <div className="section-inner">
-        <SectionLabel>Investimento e Condições</SectionLabel>
+        <SectionLabel>Investimento</SectionLabel>
         
+        {/* Total em Destaque */}
+        <div className="card-accent p-8 md:p-10 text-center mb-8">
+          <p className="text-label mb-3">Valor Total do Projeto</p>
+          <p className="font-serif text-4xl md:text-5xl text-[#c9a86c] tracking-wide">
+            {proposal.investimentoTotal}
+          </p>
+        </div>
+
+        {/* Condições de Pagamento */}
         <div className="card overflow-hidden">
-          {/* Header */}
-          <div className="hidden md:grid grid-cols-[1fr_auto_auto] gap-4 px-6 py-4 bg-card/50 border-b border-line/50">
-            <span className="text-label">Parcela</span>
-            <span className="text-label text-right w-32">Valor</span>
-            <span className="text-label text-right w-16">%</span>
+          <div className="px-6 py-4 bg-card/50 border-b border-line/50">
+            <span className="text-label">Condições de Pagamento</span>
           </div>
           
           {/* Rows */}
@@ -33,47 +55,23 @@ export function PricingTable({ proposal }: PricingTableProps) {
             {parcelas.map((parcela, index) => (
               <div 
                 key={index}
-                className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-2 md:gap-4 px-6 py-4"
+                className="flex items-center justify-between px-6 py-5"
               >
-                <div>
-                  <span className="md:hidden text-caption text-text-secondary block mb-1">
-                    Parcela {index + 1}
-                  </span>
+                <div className="flex-1">
                   <span className="text-body text-text-strong">
                     {parcela.descricao}
                   </span>
                 </div>
-                <div className="md:text-right md:w-32">
-                  <span className="md:hidden text-caption text-text-secondary">
-                    Valor:{' '}
-                  </span>
-                  <span className="text-body text-text-strong font-medium">
+                <div className="flex items-center gap-6">
+                  <span className="text-body text-text-strong font-semibold">
                     {parcela.valor}
                   </span>
-                </div>
-                <div className="md:text-right md:w-16">
-                  <span className="md:hidden text-caption text-text-secondary">
-                    ({parcela.pct})
-                  </span>
-                  <span className="hidden md:inline text-body text-text-secondary">
-                    {parcela.pct}
+                  <span className="text-caption text-[#c9a86c] font-medium w-12 text-right">
+                    {formatPct(parcela.pct)}
                   </span>
                 </div>
               </div>
             ))}
-          </div>
-          
-          {/* Total */}
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_auto] gap-2 md:gap-4 px-6 py-5 bg-text-strong text-cream">
-            <span className="font-serif text-lg uppercase tracking-wide">
-              Total
-            </span>
-            <span className="font-serif text-xl md:text-right md:w-32">
-              {proposal.investimentoTotal}
-            </span>
-            <span className="hidden md:block text-right w-16 opacity-60">
-              100%
-            </span>
           </div>
         </div>
         
