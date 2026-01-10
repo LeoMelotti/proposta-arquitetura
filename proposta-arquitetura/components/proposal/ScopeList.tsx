@@ -5,12 +5,12 @@ interface ScopeListProps {
 }
 
 export function ScopeList({ proposal }: ScopeListProps) {
-  // Função para colocar negrito antes dos dois pontos
-  const formatItem = (item: string) => {
-    const colonIndex = item.indexOf(':');
+  const formatItem = (item: unknown) => {
+    const itemStr = String(item || '');
+    const colonIndex = itemStr.indexOf(':');
     if (colonIndex > -1) {
-      const before = item.substring(0, colonIndex);
-      const after = item.substring(colonIndex);
+      const before = itemStr.substring(0, colonIndex);
+      const after = itemStr.substring(colonIndex);
       return (
         <>
           <strong className="font-semibold">{before}</strong>
@@ -18,7 +18,7 @@ export function ScopeList({ proposal }: ScopeListProps) {
         </>
       );
     }
-    return item;
+    return itemStr;
   };
 
   return (
@@ -30,12 +30,10 @@ export function ScopeList({ proposal }: ScopeListProps) {
               key={index}
               className="flex items-start gap-5 py-5 border-b border-line/50 last:border-b-0"
             >
-              {/* Number with accent color */}
               <span className="font-serif text-lg text-[#c9a86c] flex-shrink-0 w-8 pt-0.5">
                 {String(index + 1).padStart(2, '0')}
               </span>
               
-              {/* Item */}
               <p className="text-body text-text-strong flex-1">
                 {formatItem(item)}
               </p>
