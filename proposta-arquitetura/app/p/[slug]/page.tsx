@@ -78,14 +78,14 @@ export default async function ProposalPage({ params }: PageProps) {
       {/* 1. Capa */}
       <Cover proposal={proposal} />
       
-      {/* 2. Resumo Executivo */}
+      {/* 2. Resumo */}
       <ExecutiveSummary proposal={proposal} />
       
-      {/* 3. Escopo */}
-      <ScopeList proposal={proposal} />
-      
-      {/* 4. Timeline */}
+      {/* 3. Processo e Etapas */}
       <Timeline proposal={proposal} />
+      
+      {/* 4. Itens */}
+      <ScopeList proposal={proposal} />
       
       {/* 5. Entregáveis */}
       <ExecutiveChecklist proposal={proposal} />
