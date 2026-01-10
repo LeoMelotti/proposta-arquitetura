@@ -13,32 +13,18 @@ export function PricingTable({ proposal }: PricingTableProps) {
     pct: proposal.parcelasPct[index] || '',
   }));
 
-  // Função para formatar porcentagem corretamente
-  const formatPct = (pct: string) => {
+  const formatPct = (pct: string | number) => {
     if (!pct) return '';
-    if (pct.includes('%')) return pct;
-    const num = parseFloat(pct);
+    const pctStr = String(pct);
+    if (pctStr.includes('%')) return pctStr;
+    const num = parseFloat(pctStr);
     if (!isNaN(num)) {
       if (num <= 1) {
-        return `${Math.round(num * 100)}%`;
+        return Math.round(num * 100) + '%';
       }
-      return `${Math.round(num)}%`;
+      return Math.round(num) + '%';
     }
-    return pct;
-  };
-
-  // Função para formatar valor monetário
-  const formatCurrency = (value: string) => {
-    if (!value) return '';
-    // Se já tem R$, retorna como está
-    if (value.includes('R$')) return value;
-    // Remove caracteres não numéricos exceto vírgula e ponto
-    const cleanValue = value.replace(/[^\d.,]/g, '').replace(',', '.');
-    const num = parseFloat(cleanValue);
-    if (!isNaN(num)) {
-      return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    }
-    return value;
+    return pctStr;
   };
 
   const validityDate = getValidityDate(proposal.dataProposta, proposal.validadeDias);
@@ -48,21 +34,18 @@ export function PricingTable({ proposal }: PricingTableProps) {
       <div className="section-inner">
         <SectionLabel>Investimento</SectionLabel>
         
-        {/* Total em Destaque */}
         <div className="card-accent p-8 md:p-10 text-center mb-8">
           <p className="text-label mb-3">Valor Total do Projeto</p>
           <p className="font-serif text-4xl md:text-5xl text-[#c9a86c] tracking-wide">
-            {formatCurrency(proposal.investimentoTotal)}
+            {proposal.investimentoTotal}
           </p>
         </div>
 
-        {/* Condições de Pagamento */}
         <div className="card overflow-hidden">
           <div className="px-6 py-4 bg-card/50 border-b border-line/50">
             <span className="text-label">Condições de Pagamento</span>
           </div>
           
-          {/* Rows */}
           <div className="divide-y divide-line/30">
             {parcelas.map((parcela, index) => (
               <div 
@@ -76,7 +59,7 @@ export function PricingTable({ proposal }: PricingTableProps) {
                 </div>
                 <div className="flex items-center gap-6">
                   <span className="text-body text-text-strong font-semibold">
-                    {formatCurrency(parcela.valor)}
+                    {parcela.valor}
                   </span>
                   <span className="text-caption text-[#c9a86c] font-medium w-12 text-right">
                     {formatPct(parcela.pct)}
@@ -87,7 +70,6 @@ export function PricingTable({ proposal }: PricingTableProps) {
           </div>
         </div>
         
-        {/* Validity */}
         {validityDate && (
           <p className="text-caption text-text-secondary mt-6 text-center">
             Proposta válida até {validityDate}
