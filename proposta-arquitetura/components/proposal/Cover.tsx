@@ -41,7 +41,7 @@ export function Cover({ proposal }: CoverProps) {
         
         {/* Client */}
         <p className="text-caption text-text-secondary mb-2">
-          Elaborado para
+          Elaborada para
         </p>
         <p className="font-serif text-xl uppercase tracking-wide text-text-strong mb-12">
           {proposal.clienteNome}
