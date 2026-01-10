@@ -1,5 +1,4 @@
 import { Proposal } from '@/lib/types';
-import { SectionLabel } from '@/components/ui/SectionLabel';
 
 interface ScopeListProps {
   proposal: Proposal;
@@ -9,8 +8,6 @@ export function ScopeList({ proposal }: ScopeListProps) {
   return (
     <section className="section avoid-break">
       <div className="section-inner">
-        <SectionLabel>Escopo do Projeto</SectionLabel>
-        
         <div className="space-y-0">
           {proposal.escopoItens.map((item, index) => (
             <div 
