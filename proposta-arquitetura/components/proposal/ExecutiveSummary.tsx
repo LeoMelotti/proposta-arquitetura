@@ -9,7 +9,7 @@ export function ExecutiveSummary({ proposal }: ExecutiveSummaryProps) {
   return (
     <section className="section page-break-before">
       <div className="section-inner">
-        <SectionLabel>Resumo</SectionLabel>
+        <SectionLabel>Resumo da Proposta</SectionLabel>
         
         {/* Main Text */}
         <p className="text-body text-text-strong mb-8 leading-relaxed">
