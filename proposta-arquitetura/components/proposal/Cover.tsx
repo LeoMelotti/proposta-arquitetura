@@ -24,7 +24,7 @@ export function Cover({ proposal }: CoverProps) {
         <div className="w-16 h-px bg-line mx-auto mb-12" />
         
         {/* Label */}
-        <p className="text-label mb-6">Proposta</p>
+        <p className="text-label mb-6">Proposta de Orçamento</p>
         
         {/* Project Name */}
         <h1 className="text-display text-text-strong mb-4">
@@ -41,7 +41,7 @@ export function Cover({ proposal }: CoverProps) {
         
         {/* Client */}
         <p className="text-caption text-text-secondary mb-2">
-          Preparado para
+          Elaborado para
         </p>
         <p className="font-serif text-xl uppercase tracking-wide text-text-strong mb-12">
           {proposal.clienteNome}
