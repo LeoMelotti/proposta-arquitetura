@@ -33,7 +33,7 @@ export function Cover({ proposal }: CoverProps) {
         
         {/* Project Type */}
         <p className="text-caption text-text-secondary mb-12">
-          {proposal.projetoTipo}
+          Proposta de orçamento para projeto de interiores residencial contemplando os seguintes ambientes:
         </p>
         
         {/* Divider */}
