@@ -11,7 +11,6 @@ import {
   SiteVisits,
   Exclusions,
   PricingTable,
-  PortfolioGrid,
   NextSteps,
 } from '@/components/proposal';
 
@@ -78,7 +77,7 @@ export default async function ProposalPage({ params }: PageProps) {
       {/* 1. Capa */}
       <Cover proposal={proposal} />
       
-      {/* 2. Resumo */}
+      {/* 2. Resumo da Proposta */}
       <ExecutiveSummary proposal={proposal} />
       
       {/* 3. Processo e Etapas */}
@@ -93,16 +92,13 @@ export default async function ProposalPage({ params }: PageProps) {
       {/* 6. Visitas */}
       <SiteVisits proposal={proposal} />
       
-      {/* 7. Não Incluso / Premissas */}
+      {/* 7. Não Incluso */}
       <Exclusions proposal={proposal} />
       
       {/* 8. Investimento */}
       <PricingTable proposal={proposal} />
       
-      {/* 9. Portfólio */}
-      <PortfolioGrid proposal={proposal} />
-      
-      {/* 10. Próximos Passos */}
+      {/* 9. Próximos Passos */}
       <NextSteps proposal={proposal} />
       
       {/* Footer spacing */}
