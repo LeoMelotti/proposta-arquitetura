@@ -6,20 +6,16 @@ interface SiteVisitsProps {
 }
 
 export function SiteVisits({ proposal }: SiteVisitsProps) {
-  if (!proposal.visitasQtd || proposal.visitasQtd === 0) {
-    return null;
-  }
-
   return (
     <section className="section avoid-break">
       <div className="section-inner">
-        <SectionLabel>Acompanhamento de Obra</SectionLabel>
+        <SectionLabel>Visitas a obra</SectionLabel>
         
         <div className="card-accent p-8 md:p-10 text-center">
           {/* Number */}
           <div className="mb-4">
             <span className="font-serif text-5xl md:text-6xl text-accent tracking-tight">
-              {proposal.visitasQtd}
+              3
             </span>
           </div>
           
@@ -30,7 +26,7 @@ export function SiteVisits({ proposal }: SiteVisitsProps) {
           
           {/* Description */}
           <p className="text-body text-text-secondary max-w-md mx-auto">
-            {proposal.visitasDescricao}
+            {proposal.visitasDescricao || 'Visitas técnicas para acompanhamento da execução e verificação de conformidade com o projeto'}
           </p>
         </div>
       </div>
