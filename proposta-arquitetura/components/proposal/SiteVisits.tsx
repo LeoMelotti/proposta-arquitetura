@@ -9,7 +9,7 @@ export function SiteVisits({ proposal }: SiteVisitsProps) {
   return (
     <section className="section avoid-break">
       <div className="section-inner">
-        <SectionLabel>Visitas a obra</SectionLabel>
+        <SectionLabel>Visitas</SectionLabel>
         
         <div className="card-accent p-8 md:p-10 text-center">
           {/* Number */}
@@ -21,12 +21,12 @@ export function SiteVisits({ proposal }: SiteVisitsProps) {
           
           {/* Label */}
           <p className="text-label mb-4">
-            Visitas Técnicas
+            Visitas ao local
           </p>
           
           {/* Description */}
           <p className="text-body text-text-secondary max-w-md mx-auto">
-            {proposal.visitasDescricao || 'Visitas técnicas para acompanhamento da execução e verificação de conformidade com o projeto'}
+            {proposal.visitasDescricao || 'Visitas para acompanhamento e orientação do projeto'}
           </p>
         </div>
       </div>
