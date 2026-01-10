@@ -16,9 +16,7 @@ export function PricingTable({ proposal }: PricingTableProps) {
   // Função para formatar porcentagem corretamente
   const formatPct = (pct: string) => {
     if (!pct) return '';
-    // Se já tem %, retorna como está
     if (pct.includes('%')) return pct;
-    // Se é número decimal (ex: 0.2), converte para porcentagem
     const num = parseFloat(pct);
     if (!isNaN(num)) {
       if (num <= 1) {
@@ -27,6 +25,20 @@ export function PricingTable({ proposal }: PricingTableProps) {
       return `${Math.round(num)}%`;
     }
     return pct;
+  };
+
+  // Função para formatar valor monetário
+  const formatCurrency = (value: string) => {
+    if (!value) return '';
+    // Se já tem R$, retorna como está
+    if (value.includes('R$')) return value;
+    // Remove caracteres não numéricos exceto vírgula e ponto
+    const cleanValue = value.replace(/[^\d.,]/g, '').replace(',', '.');
+    const num = parseFloat(cleanValue);
+    if (!isNaN(num)) {
+      return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+    return value;
   };
 
   const validityDate = getValidityDate(proposal.dataProposta, proposal.validadeDias);
@@ -40,7 +52,7 @@ export function PricingTable({ proposal }: PricingTableProps) {
         <div className="card-accent p-8 md:p-10 text-center mb-8">
           <p className="text-label mb-3">Valor Total do Projeto</p>
           <p className="font-serif text-4xl md:text-5xl text-[#c9a86c] tracking-wide">
-            {proposal.investimentoTotal}
+            {formatCurrency(proposal.investimentoTotal)}
           </p>
         </div>
 
@@ -64,7 +76,7 @@ export function PricingTable({ proposal }: PricingTableProps) {
                 </div>
                 <div className="flex items-center gap-6">
                   <span className="text-body text-text-strong font-semibold">
-                    {parcela.valor}
+                    {formatCurrency(parcela.valor)}
                   </span>
                   <span className="text-caption text-[#c9a86c] font-medium w-12 text-right">
                     {formatPct(parcela.pct)}
