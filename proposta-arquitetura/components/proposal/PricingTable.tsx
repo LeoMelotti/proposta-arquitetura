@@ -8,23 +8,21 @@ interface PricingTableProps {
 
 export function PricingTable({ proposal }: PricingTableProps) {
   const parcelas = proposal.parcelasDescricao.map((descricao, index) => ({
-    descricao,
-    valor: proposal.parcelasValores[index] || '',
-    pct: proposal.parcelasPct[index] || '',
+    descricao: String(descricao || ''),
+    valor: String(proposal.parcelasValores[index] || ''),
+    pct: proposal.parcelasPct[index],
   }));
 
-  const formatPct = (pct: string | number) => {
-    if (!pct) return '';
-    const pctStr = String(pct);
-    if (pctStr.includes('%')) return pctStr;
-    const num = parseFloat(pctStr);
+  const formatPct = (pct: unknown) => {
+    if (pct === null || pct === undefined || pct === '') return '';
+    const num = Number(pct);
     if (!isNaN(num)) {
       if (num <= 1) {
         return Math.round(num * 100) + '%';
       }
       return Math.round(num) + '%';
     }
-    return pctStr;
+    return String(pct);
   };
 
   const validityDate = getValidityDate(proposal.dataProposta, proposal.validadeDias);
