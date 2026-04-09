@@ -1,6 +1,6 @@
 import { Proposal } from './types';
 
-const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://seu-n8n.com/webhook/proposta';
+const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://n8n.srv1199443.hstgr.cloud/webhook/proposta';
 
 // Fetch a single proposal by slug via n8n webhook
 export async function getProposalBySlug(slug: string): Promise<Proposal | null> {
@@ -10,8 +10,8 @@ export async function getProposalBySlug(slug: string): Promise<Proposal | null> 
       headers: {
         'Accept': 'application/json',
       },
-      // Revalidate every 60 seconds
-      next: { revalidate: 60 },
+      // IMPORTANTE: Desabilita cache completamente
+      cache: 'no-store',
     });
 
     if (!response.ok) {
@@ -37,6 +37,7 @@ export async function getAllProposalSlugs(): Promise<string[]> {
       headers: {
         'Accept': 'application/json',
       },
+      cache: 'no-store',
     });
 
     if (!response.ok) {
