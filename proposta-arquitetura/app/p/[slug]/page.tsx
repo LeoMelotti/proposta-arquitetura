@@ -14,6 +14,9 @@ import {
   NextSteps,
 } from '@/components/proposal';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface PageProps {
   params: { slug: string };
 }
@@ -106,6 +109,3 @@ export default async function ProposalPage({ params }: PageProps) {
     </main>
   );
 }
-
-// Revalidate every 60 seconds
-export const revalidate = 60;
