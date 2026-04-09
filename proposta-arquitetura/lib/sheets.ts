@@ -19,10 +19,6 @@ export async function getProposalBySlug(slug: string): Promise<Proposal | null> 
     const data = await response.json();
     console.log('[getProposalBySlug] data keys:', Object.keys(data || {}));
     console.log('[getProposalBySlug] slug in response:', data?.slug, 'visitasQtd:', data?.visitasQtd);
-    if (!data || !data.slug) {
-      console.log('[getProposalBySlug] empty or invalid payload, returning null');
-      return null;
-    }
     return data as Proposal;
   } catch (error) {
     console.error('[getProposalBySlug] error:', error);
