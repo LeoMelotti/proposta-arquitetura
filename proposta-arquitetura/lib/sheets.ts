@@ -3,20 +3,29 @@ import { Proposal } from './types';
 const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://n8n.srv1199443.hstgr.cloud/webhook/proposta';
 
 export async function getProposalBySlug(slug: string): Promise<Proposal | null> {
+  const url = `${N8N_WEBHOOK_URL}?slug=${encodeURIComponent(slug)}`;
+  console.log('[getProposalBySlug] fetching:', url);
   try {
-    const response = await fetch(`${N8N_WEBHOOK_URL}?slug=${encodeURIComponent(slug)}`, {
+    const response = await fetch(url, {
       method: 'GET',
       headers: { 'Accept': 'application/json' },
       cache: 'no-store',
     });
+    console.log('[getProposalBySlug] status:', response.status);
     if (!response.ok) {
       if (response.status === 404) return null;
       throw new Error(`HTTP ${response.status}`);
     }
     const data = await response.json();
+    console.log('[getProposalBySlug] data keys:', Object.keys(data || {}));
+    console.log('[getProposalBySlug] slug in response:', data?.slug, 'visitasQtd:', data?.visitasQtd);
+    if (!data || !data.slug) {
+      console.log('[getProposalBySlug] empty or invalid payload, returning null');
+      return null;
+    }
     return data as Proposal;
   } catch (error) {
-    console.error('Error fetching proposal from n8n:', error);
+    console.error('[getProposalBySlug] error:', error);
     return null;
   }
 }

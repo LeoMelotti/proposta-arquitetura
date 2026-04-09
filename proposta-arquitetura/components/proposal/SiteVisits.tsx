@@ -15,7 +15,7 @@ export function SiteVisits({ proposal }: SiteVisitsProps) {
           {/* Number */}
           <div className="mb-4">
             <span className="font-serif text-5xl md:text-6xl text-accent tracking-tight">
-              3
+              {proposal.visitasQtd}
             </span>
           </div>
           
