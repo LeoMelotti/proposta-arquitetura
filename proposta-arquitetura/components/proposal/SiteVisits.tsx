@@ -6,6 +6,11 @@ interface SiteVisitsProps {
 }
 
 export function SiteVisits({ proposal }: SiteVisitsProps) {
+  // Se não tem visitas, não mostra a seção
+  if (!proposal.visitasQtd || proposal.visitasQtd === 0) {
+    return null;
+  }
+
   return (
     <section className="section avoid-break">
       <div className="section-inner">
